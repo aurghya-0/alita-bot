@@ -18,20 +18,20 @@ class PlayCommand extends Command {
             memberName: 'play',
             args: [
                 {
-                    type: 'string',
-                    key: 'gameName',
-                    prompt: 'Please enter a game name to play with Xyaa!'
+                    type: 'integer',
+                    key: 'gameId',
+                    prompt: 'Please enter a game id to play with Xyaa!'
                 }
             ]
         })
     }
 
-    async run(msg, { gameName }) {
+    async run(msg, { gameId }) {
         const db = await dbPromise;
         const [members] = await Promise.all([
-            db.run('INSERT INTO MemQueue (member_id, game) VALUES($name, $game)', {
+            db.run('INSERT INTO MemQueue (member_id, game_id) VALUES($name, $game);', {
                 $name: msg.author.id,
-                $game: gameName
+                $game: gameId
             })
         ]);
         msg.reply("Done! Fixed a game with Xyaa!")
