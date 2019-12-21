@@ -5,7 +5,6 @@ const { Promise } = require('bluebird');
 
 const dbPromise = Promise.resolve()
     .then(() => sqlite.open(path.join(__dirname, 'member_queue.sqlite3'), { Promise }))
-    .then(db => db.migrate({ force: 'last' }));
 
 
 class PlayCommand extends Command {
