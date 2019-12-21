@@ -3,7 +3,6 @@ const { Command } = require('discord.js-commando');
 const path = require('path');
 const sqlite = require('sqlite');
 const { Promise } = require('bluebird');
-
 const dbPromise = Promise.resolve()
     .then(() => sqlite.open(path.join(__dirname, 'member_queue.sqlite3'), { Promise }))
 

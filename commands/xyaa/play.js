@@ -28,8 +28,9 @@ class PlayCommand extends Command {
     async run(msg, { gameId }) {
         const db = await dbPromise;
         const [members] = await Promise.all([
-            db.run('INSERT INTO MemQueue (member_id, game_id) VALUES($name, $game);', {
-                $name: msg.author.id,
+            db.run('INSERT INTO MemQueue (member_id, member_name, game_id) VALUES($id, $name, $game);', {
+                $id: msg.author.id,
+                $name: msg.author.username,
                 $game: gameId
             })
         ]);

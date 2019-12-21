@@ -1,5 +1,4 @@
 const { Command } = require('discord.js-commando');
-const { RichEmbed } = require('discord.js');
 const Table = require("ascii-table");
 const path = require('path');
 const sqlite = require('sqlite');

@@ -8,7 +8,7 @@ const axios = require('axios')
 const client = new Commando.CommandoClient({
     commandPrefix: '&',
     owner: '254256459603247105',
-    invite: 'https://discord.gg/tqKpQSQ'
+    invite: 'https://discord.gg/wcF7gpU'
 });
 
 const updatePresence = () => {
