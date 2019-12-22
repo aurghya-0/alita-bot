@@ -7,6 +7,9 @@
     "monitor": "nodemon --no-warnings --inspect index.js",
     "run": "node ."
   },
+  "repository": {
+    "url": "https://github.com/aurghya-0/alita-bot"
+  },
   "author": "Aurghyadip Kundu",
   "license": "ISC",
   "dependencies": {

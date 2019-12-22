@@ -16,6 +16,8 @@ CREATE TABLE MemQueue (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     member_id TEXT,
     member_name TEXT,
+    ign TEXT,
+    pubg_id TEXT,
     game_id INTEGER,
     FOREIGN KEY(game_id) REFERENCES GamesList(id) 
 );

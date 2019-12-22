@@ -23,7 +23,9 @@ class DeleteCommand extends Command {
             if (members.first()) {
                 const userId = members.first().user.id;
                 const db = await dbPromise;
+
                 try {
+                    await db.exec("PRAGMA foreign_keys = ON;");
                     await Promise.all([
                         db.run('DELETE FROM MemQueue WHERE member_id = ? ;', userId)
                     ]);
@@ -35,7 +37,25 @@ class DeleteCommand extends Command {
                 msg.channel.send("Please mention a member to delete from the queue");
             }
         } else {
-            msg.reply("you do not have the permission to delete a member from the queue.");
+            const members = msg.mentions.members;
+            if (members.first()) {
+                const userId = members.first().user.id;
+                if (userId == msg.author.id) {
+                    const db = await dbPromise;
+                    try {
+                        await Promise.all([
+                            db.run('DELETE FROM MemQueue WHERE member_id = ? ;', userId)
+                        ]);
+                        msg.channel.send(`<@${userId}> has been deleted from the queue.`);
+                    } catch (e) {
+                        console.error(e);
+                    }
+                } else {
+                    msg.reply("you do not have the permission to delete a member from the queue.");
+                }
+            } else {
+                msg.reply("please mention a member to delete from the queue.");
+            }
         }
     }
 }

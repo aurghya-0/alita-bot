@@ -33,8 +33,8 @@ class ViewPlayersCommand extends Command {
         console.log(members);
 
         var response = "";
-        members.forEach((row) => {
-            response = response + `${row.id}. ${row.member_name}\n`
+        members.forEach((row, index) => {
+            response = response + `${index + 1}. ${row.member_name}\n`
         });
         msg.channel.send(response);
     }
