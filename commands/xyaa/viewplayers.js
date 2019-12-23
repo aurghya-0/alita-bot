@@ -50,6 +50,7 @@ class ViewPlayersCommand extends Command {
             });
         });
         response.fields = fieldArray;
+        response.setThumbnail('https://res.cloudinary.com/aurghyadip/image/upload/v1577086229/xyaa_white_purple_only_name_bgv66m.png');
         msg.channel.send(response);
     }
 }
