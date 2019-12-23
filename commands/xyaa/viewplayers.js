@@ -1,4 +1,5 @@
 const { Command } = require('discord.js-commando');
+const { RichEmbed } = require('discord.js');
 const Table = require("ascii-table");
 const path = require('path');
 const sqlite = require('sqlite');
@@ -29,13 +30,26 @@ class ViewPlayersCommand extends Command {
 
     async run(msg, { maxrows }) {
         const db = await dbPromise;
-        const members = await db.all(`SELECT * FROM MemQueue LIMIT ${maxrows};`);
+        var sql = `SELECT member_name, ign, pubg_id, game_name FROM MemQueue INNER JOIN GamesList On GamesList.id = MemQueue.game_id LIMIT ${maxrows};`
+        const members = await db.all(sql);
         console.log(members);
 
-        var response = "";
-        members.forEach((row, index) => {
-            response = response + `${index + 1}. ${row.member_name}\n`
+        var response = new RichEmbed({
+            title: 'Member Queue',
+            description: 'List of people who wants to play with Xyaa'
         });
+        var fieldArray = [];
+        members.forEach((row) => {
+            var text = `IGN - ${row.ign}\n`
+            if(row.pubg_id) {
+                text = text + `PUBG ID - ${row.pubg_id}`;
+            }
+            fieldArray.push({
+                name: `${row.member_name} - ${row.game_name}`,
+                value: text
+            });
+        });
+        response.fields = fieldArray;
         msg.channel.send(response);
     }
 }
