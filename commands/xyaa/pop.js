@@ -44,7 +44,7 @@ class PopPlayerCommand extends Command {
             if(member.pubg_id) {
                 response.addField("PUBGM ID", member.pubg_id);
             }
-            response.setThumbnail('https://res.cloudinary.com/aurghyadip/image/upload/v1576670033/unnamed_boh6yn.jpg') ;
+            response.setThumbnail('https://res.cloudinary.com/aurghyadip/image/upload/v1577086229/xyaa_white_purple_only_name_bgv66m.png') ;
             msg.channel.send(response);
             await db.run('DELETE FROM MemQueue WHERE member_id = ? ;', member.member_id);
             msg.channel.send(`<@${member.member_id}> has been removed from the queue.`);
