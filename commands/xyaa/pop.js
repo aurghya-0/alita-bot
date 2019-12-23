@@ -30,7 +30,7 @@ class PopPlayerCommand extends Command {
 
     async run(msg, { maxrows }) {
         if (msg.author.id != '217584135818969089') {
-            msg.reply('Only Xyaa can pop members from the queue.!!');
+            return msg.reply('Only Xyaa can pop members from the queue.!!');
         }
         const db = await dbPromise;
         const member = await db.get('SELECT * FROM MemQueue;');
