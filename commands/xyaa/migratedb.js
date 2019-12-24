@@ -20,7 +20,7 @@ class MigrateDBCommand extends Command {
         if (msg.member.hasPermission('ADMINISTRATOR')) {
             const dbPromise = Promise.resolve()
                 .then(() => sqlite.open(path.join(__dirname, 'member_queue.sqlite3'), { Promise }))
-                .then(db => db.migrate({ force: 'last' }));
+                .then(db => db.migrate());
         } else {
             msg.reply("you do not have the permission to add a game to the database.");
         }

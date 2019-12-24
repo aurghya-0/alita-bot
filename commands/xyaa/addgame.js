@@ -17,6 +17,11 @@ class AddGameCommand extends Command {
             memberName: 'addgame',
             args: [
                 {
+                    type: 'integer',
+                    key: 'isMobile',
+                    prompt: '0 if PC game, 1 if Mobile game.'
+                },
+                {
                     type: 'string',
                     key: 'gameName',
                     prompt: 'Enter the name of the game to add!'
@@ -25,13 +30,16 @@ class AddGameCommand extends Command {
         })
     }
 
-    async run(msg, { gameName }) {
+    async run(msg, { gameName, isMobile }) {
         console.log(msg.member.hasPermission('ADMINISTRATOR'));
         if (msg.member.hasPermission('ADMINISTRATOR')) {
             const db = await dbPromise;
             try {
                 await Promise.all([
-                    db.run('INSERT INTO GamesList (game_name) VALUES(?);', gameName)
+                    db.run('INSERT INTO GamesList (game_name, is_mobile) VALUES($name, $mobile);', {
+                        $name: gameName,
+                        $mobile: isMobile
+                    })
                 ]);
                 msg.reply(`${gameName} has been added to the database`);
             } catch (e) {

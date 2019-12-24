@@ -40,17 +40,16 @@ class PlayCommand extends Command {
         if (msg.author.id == '217584135818969089') {
             return msg.reply("Momma I'll play with you IRL. Hug me, NOW!")
         }
-        if (gameId == 2) {
-            if (!pubgId) {
-                return msg.reply("You need to provide your PUBGM ID \n **Format: **`&play <gameId> <ign> [pubgId]`");
-            }
-        }
         const db = await dbPromise;
         const existingMember = await db.get("SELECT * FROM MemQueue WHERE member_id = ? ;", msg.author.id);
         if (existingMember) {
             msg.reply("You can't queue more than once. You have queued for being in a game already.");
         } else {
             try {
+                var game = await db.get('SELECT * FROM GamesList WHERE id = ? ;', gameId);
+                if (game && game.is_mobile > 0) {
+                    return msg.reply("You need to provide your PUBGM ID \n **Format: **`&play <gameId> <ign> [pubgId]`");
+                }
                 await Promise.all([
                     db.exec("PRAGMA foreign_keys = ON;"),
                     db.run('INSERT INTO MemQueue (member_id, member_name, ign, pubg_id, game_id) VALUES($id, $name, $inGameName, $pubgN, $game);', {
