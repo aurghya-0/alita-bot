@@ -47,7 +47,7 @@ class PlayCommand extends Command {
         } else {
             try {
                 var game = await db.get('SELECT * FROM GamesList WHERE id = ? ;', gameId);
-                if (game && game.is_mobile > 0) {
+                if (game && game.is_mobile > 0 && !ßpubgId) {
                     return msg.reply("You need to provide your PUBGM ID \n **Format: **`&play <gameId> <ign> [pubgId]`");
                 }
                 await Promise.all([

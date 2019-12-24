@@ -25,9 +25,13 @@ class ViewGamesCommand extends Command {
         ])
         var fieldArray = [];
         var table = new Table();
-        table.setHeading(['ID', 'Game Name'])
+        table.setHeading(['ID', 'Game Name', 'Mobile Game?'])
         games[0].forEach((row) => {
-            table.addRow(row.id, row.game_name);
+            if (row.is_mobile) {
+                table.addRow(row.id, row.game_name, "Yes");
+            } else {
+                table.addRow(row.id, row.game_name, "No");
+            }
         });
         var textTable = "```css\n" + table.toString() + "\n```";
         msg.channel.send("Here are the games you can play with Xyaa\n" + textTable);

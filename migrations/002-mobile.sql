@@ -1,6 +1,6 @@
 -- Up 
 ALTER TABLE GamesList
-ADD COLUMN is_mobile INTEGER;
+ADD COLUMN is_mobile INTEGER DEFAULT 0;
  
 -- Down 
 ALTER TABLE GamesList
