@@ -40,9 +40,10 @@ class UpdateGame extends Command {
             try {
                 var game = await db.get('SELECT * FROM GamesList WHERE id = ?', gameId);
                 if (game) {
-                    await db.run('UPDATE GamesList SET game_name = $name, is_mobile = $mobile', {
+                    await db.run('UPDATE GamesList SET game_name = $name, is_mobile = $mobile WHERE id = $id', {
                         $name: gameName,
-                        $mobile: isMobile
+                        $mobile: isMobile,
+                        $id: gameId
                     });
                     msg.channel.send("Updated Entry!");
                 } else {
