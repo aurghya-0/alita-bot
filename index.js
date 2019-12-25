@@ -16,7 +16,8 @@ const updatePresence = () => {
         type: 'PLAYING'
     });
 }
-
+// TODO: Craete a database system seperate for each guild (with a seperate image also, fetch image from the db?)
+// Maybe add a guild based database system or add a column for guild
 
 client.registry
     .registerDefaultTypes()

@@ -1,6 +1,7 @@
 const { Command } = require('discord.js-commando');
 const path = require('path');
 const sqlite = require('sqlite');
+const { RichEmbed } = require('discord.js');
 const { Promise } = require('bluebird');
 
 const dbPromise = Promise.resolve()
@@ -60,7 +61,26 @@ class PlayCommand extends Command {
                         $game: gameId
                     })
                 ]);
-                msg.reply("Done! Fixed a game with Xyaa!")
+                var fieldArray = [];
+                fieldArray.push({
+                    name: "IGN",
+                    value: ign,
+                    inline: false
+                });
+                if(game.is_mobile) {
+                    fieldArray.push({
+                        name: "MOBILE ID",
+                        value: pubgId,
+                        inline: false
+                    });
+                } 
+                var response = new RichEmbed({
+                    title: `${game.game_name} match with Xyaa`,
+                    description: `Your name has been added to the Queue`,
+                    fields: fieldArray
+                });
+                msg.channel.send(response);
+                msg.delete();
             } catch (e) {
                 console.error(e);
                 if (e.code == 'SQLITE_CONSTRAINT') {
