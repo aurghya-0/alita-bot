@@ -48,7 +48,7 @@ class PlayCommand extends Command {
         } else {
             try {
                 var game = await db.get('SELECT * FROM GamesList WHERE id = ? ;', gameId);
-                if (game && game.is_mobile > 0 && !ßpubgId) {
+                if (game && game.is_mobile > 0 && !pubgId) {
                     return msg.reply("You need to provide your PUBGM ID \n **Format: **`&play <gameId> <ign> [pubgId]`");
                 }
                 await Promise.all([
@@ -67,13 +67,13 @@ class PlayCommand extends Command {
                     value: ign,
                     inline: false
                 });
-                if(game.is_mobile) {
+                if (game.is_mobile) {
                     fieldArray.push({
                         name: "MOBILE ID",
                         value: pubgId,
                         inline: false
                     });
-                } 
+                }
                 var response = new RichEmbed({
                     title: `${game.game_name} match with Xyaa`,
                     description: `Your name has been added to the Queue`,
