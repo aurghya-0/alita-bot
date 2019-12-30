@@ -39,19 +39,19 @@ class PopPlayerCommand extends Command {
             return msg.reply('Only Xyaa can pop members from the queue.!!');
         }
         const db = await dbPromise;
-        if(gameId == 0) {
+        if (gameId == 0) {
             const member = await db.get(`SELECT * FROM MemQueue LIMIT ${maxrows};`);
         } else {
             const member = await db.get(`SELECT * FROM MemQueue WHERE game_id = ${gameId} LIMIT ${maxrows};`);
         }
         console.log(member);
-        if(member) {
+        if (member) {
             var response = new RichEmbed();
             var game = await db.get('SELECT * FROM GamesList WHERE ID = ? ;', member.game_id);
             response.title = member.member_name;
             response.description = `<@${member.member_id}> wants to play ${game.game_name}`;
             response.addField('IGN', member.ign, true);
-            if(member.pubg_id) {
+            if (member.pubg_id) {
                 response.addField("PUBGM ID", member.pubg_id);
             }
             response.setThumbnail('https://res.cloudinary.com/aurghyadip/image/upload/v1577086229/xyaa_white_purple_only_name_bgv66m.png');
