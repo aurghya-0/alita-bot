@@ -23,19 +23,27 @@ class PopPlayerCommand extends Command {
                     prompt: 'How many members (max) do you want to see?',
                     type: 'integer',
                     default: 5
+                },
+                {
+                    key: 'gameId',
+                    prompt: 'Game ID of the game you\'d like to play now.',
+                    type: 'integer',
+                    default: 0
                 }
             ]
         })
     }
 
-    async run(msg, { maxrows }) {
-        //TODO: Add a query parameter so that Xyaa can pop people playing the same game as stream rather than popping everyone
-        // How to: Select the top row from the result querying the MemQueue (pass the game id as a parameter)
+    async run(msg, { maxrows, gameId }) {
         if (msg.author.id != '217584135818969089') {
             return msg.reply('Only Xyaa can pop members from the queue.!!');
         }
         const db = await dbPromise;
-        const member = await db.get(`SELECT * FROM MemQueue LIMIT ${maxrows};`);
+        if(gameId == 0) {
+            const member = await db.get(`SELECT * FROM MemQueue LIMIT ${maxrows};`);
+        } else {
+            const member = await db.get(`SELECT * FROM MemQueue WHERE game_id = ${gameId} LIMIT ${maxrows};`);
+        }
         console.log(member);
         if(member) {
             var response = new RichEmbed();
