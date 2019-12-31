@@ -27,7 +27,8 @@ client.registry
         ping: false
     })
     .registerGroups([
-        ['xyaa', 'Xyaa!']
+        ['xyaa', 'Xyaa!'],
+        ['random', 'Random Stuffs!!']
     ])
     .registerCommandsIn(path.join(__dirname, 'commands'));
 
