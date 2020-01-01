@@ -1,3 +1,4 @@
+var keys = require('./authtokens');
 const Logger = require('logdna');
 
 // Logdna Options
