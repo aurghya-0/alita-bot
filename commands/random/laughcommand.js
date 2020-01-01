@@ -1,6 +1,7 @@
 const { Command } = require('discord.js-commando');
 const path = require('path');
 const oneLiner = require('one-liner-joke');
+const logger = require('../../logg');
 
 class ShoutoutCommand extends Command {
     constructor(client) {
@@ -15,8 +16,9 @@ class ShoutoutCommand extends Command {
 
     async run(msg) {
         var joke = oneLiner.getRandomJoke({
-            'exclude_tags': ['dirty', 'racist', 'marriage','sex']
+            'exclude_tags': ['dirty', 'racist', 'marriage', 'sex']
         });
+        logger.info(`tags: ${joke.tags}`);
         msg.channel.send(joke.body);
         msg.delete();
     }
