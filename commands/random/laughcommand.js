@@ -14,7 +14,9 @@ class ShoutoutCommand extends Command {
     }
 
     async run(msg) {
-        var joke = oneLiner.getRandomJoke();
+        var joke = oneLiner.getRandomJoke({
+            'exclude_tags': ['dirty', 'racist', 'marriage','sex']
+        });
         msg.channel.send(joke.body);
         msg.delete();
     }
