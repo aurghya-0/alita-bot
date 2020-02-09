@@ -41,8 +41,17 @@ class PlayCommand extends Command {
         if (msg.author.id == '217584135818969089') {
             return msg.reply("Momma I'll play with you IRL. Hug me, NOW!")
         }
+        var member = msg.author;
         const db = await dbPromise;
-        const existingMember = await db.get("SELECT * FROM MemQueue WHERE member_id = ? ;", msg.author.id);
+        const mentions = msg.mentions.members;
+        if(mentions.first()) {
+            if (msg.member.hasPermission('ADMINISTRATOR')) {
+                member = mentions.first().user;
+            } else {
+                return msg.reply('You don\'t have permission to add a member to the queue.');
+            }
+        }
+        const existingMember = await db.get("SELECT * FROM MemQueue WHERE member_id = ? ;", member.id);
         if (existingMember) {
             msg.reply("You can't queue more than once. You have queued for being in a game already.");
         } else {
@@ -54,8 +63,8 @@ class PlayCommand extends Command {
                 await Promise.all([
                     db.exec("PRAGMA foreign_keys = ON;"),
                     db.run('INSERT INTO MemQueue (member_id, member_name, ign, pubg_id, game_id) VALUES($id, $name, $inGameName, $pubgN, $game);', {
-                        $id: msg.author.id,
-                        $name: msg.author.username,
+                        $id: member.id,
+                        $name: member.username,
                         $inGameName: ign,
                         $pubgN: pubgId,
                         $game: gameId
