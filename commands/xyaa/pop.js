@@ -19,12 +19,6 @@ class PopPlayerCommand extends Command {
             memberName: 'pop',
             args: [
                 {
-                    key: 'maxrows',
-                    prompt: 'How many members (max) do you want to see?',
-                    type: 'integer',
-                    default: 5
-                },
-                {
                     key: 'gameId',
                     prompt: 'Game ID of the game you\'d like to play now.',
                     type: 'integer',
@@ -34,15 +28,14 @@ class PopPlayerCommand extends Command {
         })
     }
 
-    async run(msg, { maxrows, gameId }) {
+    async run(msg, { gameId }) {
         if (msg.author.id != '217584135818969089') {
             return msg.reply('Only Xyaa can pop members from the queue.!!');
         }
         const db = await dbPromise;
-        if (gameId == 0) {
-            const member = await db.get(`SELECT * FROM MemQueue LIMIT ${maxrows};`);
-        } else {
-            const member = await db.get(`SELECT * FROM MemQueue WHERE game_id = ${gameId} LIMIT ${maxrows};`);
+        var member = await db.get(`SELECT * FROM MemQueue LIMIT 1;`);
+        if (gameId != 0) {
+            member = await db.get(`SELECT * FROM MemQueue WHERE game_id = ${gameId} LIMIT 1;`);
         }
         console.log(member);
         if (member) {
