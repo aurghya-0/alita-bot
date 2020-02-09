@@ -32,6 +32,12 @@ class PlayCommand extends Command {
                     key: 'pubgId',
                     prompt: 'If you are playing for PUBG Moblel, enter your NUMERIC ID.',
                     default: ''
+                },
+                {
+                    type: 'string',
+                    key: 'mention',
+                    prompt: 'You should mention someone if you are an admin',
+                    default: ''
                 }
             ]
         })
