@@ -20,7 +20,7 @@
     "discord.js": "^11.5.1",
     "discord.js-commando": "^0.10.0",
     "logdna": "^3.4.0",
-    "moment": "^2.24.0",
+    "moment": "^2.29.2",
     "node-cron": "^2.0.3",
     "one-liner-joke": "^1.2.0",
     "sqlite": "^3.0.3",
